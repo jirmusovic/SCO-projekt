@@ -33,7 +33,7 @@
 \title{Zero day \' utok}
 
 
-\author{\IEEEauthorblockN{Veronika Jirmusov\' a}
+\author{\IEEEauthorblockN{Bc. Veronika Jirmusov\' a}
 \IEEEauthorblockA{\textit{Fakulta informačních technologií} \\
 \textit{Vysoké učení technické v~Brně}\\
 Brno, 2024 \\
@@ -74,7 +74,7 @@ Zero-Day zranitelnosti mohou vzniknout v různých typech systémů, jako jsou o
 \subsection{Význam a důsledky Zero-Day útoků}
 Zero-Day útoky mají dalekosáhlé dopady na bezpečnost uživatelů, firem a států. Když útočníci najdou zranitelnost a využijí ji k vlastnímu prospěchu, mohou dosáhnout různých cílů, jako je neoprávněný přístup k citlivým datům, porušení integrity systému, získání úplné kontroly nad napadeným zařízením, nebo šíření malwaru. Tyto útoky často vedou k masivním bezpečnostním incidentům, únikům dat nebo vážným narušením služeb, což může mít podstatné finanční a reputační důsledky pro zasažené subjekty.
 
-Například známý útok Stuxnet, který se zaměřil na průmyslové řídicí systémy, nebo zranitelnost EternalBlue, která vedla k šíření ransomwaru WannaCry, ukazují, jak vážné mohou být následky Zero-Day zranitelností. Tyto případy prokázaly, že Zero-Day útoky mohou být nejen nástrojem kybernetického zločinu, ale také prostředkem státem sponzorovaných operací.
+Například známý útok Stuxnet \cite{Popelova2016thesis}, který se zaměřil na průmyslové řídicí systémy, nebo zranitelnost EternalBlue \cite{EB}, která vedla k šíření ransomwaru WannaCry, ukazují, jak vážné mohou být následky Zero-Day zranitelností. Tyto případy prokázaly, že Zero-Day útoky mohou být nejen nástrojem kybernetického zločinu, ale také prostředkem státem sponzorovaných operací.
 
 \subsection{Rostoucí počet a sofistikovanost útoků}
 V důsledku stále rostoucí digitalizace a vyšší závislosti na softwarových řešeních se zvyšuje jak počet, tak složitost Zero-Day útoků. Útočníci, ať už jednotlivci, organizované skupiny nebo státní subjekty, investují významné částky do objevování nových zranitelností. To vedlo k vzniku černého trhu, kde se Zero-Day exploity prodávají za vysoké ceny. V důsledku toho jsou tyto útoky častěji využívány k cíleným útokům na vládní instituce, kritickou infrastrukturu nebo komerční firmy.
@@ -82,7 +82,7 @@ V důsledku stále rostoucí digitalizace a vyšší závislosti na softwarovýc
 Proto je zásadní, aby bezpečnostní experti, vývojáři a organizace soustředili své úsilí na výzkum, detekci a minimalizaci Zero-Day zranitelností. Zavedení účinných bezpečnostních opatření a rychlé reakce na zjištěné hrozby jsou rozhodující pro snížení rizika a ochranu uživatelů a systémů před potenciálními útoky.
 
 \subsection{Struktura projektu}
-V následujících kapitolách se zaměříme na analýzu reálných případů Zero-Day útoků, metody jejich detekce a mitigace. Cílem je nabídnout praktický pohled na problematiku a přispět k lepšímu pochopení toho, jak mohou být Zero-Day zranitelnosti identifikovány a minimalizovány.
+V následujících kapitolách se zaměřím na analýzu reálných případů Zero-Day útoků, metody jejich detekce a mitigace. Cílem je nabídnout praktický pohled na problematiku a přispět k lepšímu pochopení toho, jak mohou být Zero-Day zranitelnosti identifikovány a minimalizovány.
 
 
 
@@ -278,64 +278,10 @@ The authors would like to thank...
 % http://mirror.ctan.org/biblio/bibtex/contrib/doc/
 % The IEEEtran BibTeX style support page is at:
 % http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
+\bibliographystyle{IEEEtran}
 % argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
-\begin{thebibliography}{1}
+\bibliography{proj}
 
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
-\end{thebibliography}
-
-% biography section
-% 
-% If you have an EPS/PDF photo (graphicx package needed) extra braces are
-% needed around the contents of the optional argument to biography to prevent
-% the LaTeX parser from getting confused when it sees the complicated
-% \includegraphics command within an optional argument. (You could create
-% your own custom macro containing the \includegraphics command to make things
-% simpler here.)
-%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
-% or if you just want to reserve a space for a photo:
-
-\begin{IEEEbiography}{Michael Shell}
-Biography text here.
-\end{IEEEbiography}
-
-% if you will not have a photo at all:
-\begin{IEEEbiographynophoto}{John Doe}
-Biography text here.
-\end{IEEEbiographynophoto}
-
-% insert where needed to balance the two columns on the last page with
-% biographies
-%\newpage
-
-\begin{IEEEbiographynophoto}{Jane Doe}
-Biography text here.
-\end{IEEEbiographynophoto}
-
-% You can push biographies down or up by placing
-% a \vfill before or after them. The appropriate
-% use of \vfill depends on what kind of text is
-% on the last page and whether or not the columns
-% are being equalized.
-
-%\vfill
-
-% Can be used to pull up biographies so that the bottom of the last one
-% is flush with the other column.
-%\enlargethispage{-5in}
-
-
-
-% that's all folks
 \end{document}
 
 
