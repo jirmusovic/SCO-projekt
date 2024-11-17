@@ -3,23 +3,36 @@
 
 \documentclass[11pt, conference, a4paper]{IEEEtran}
 
+
+\usepackage{listings} % Zajištění zvýraznění syntaxe kódu
+\usepackage{xcolor}   % Barevné zvýraznění syntaxe
+
+% Nastavení vzhledu pro vložený kód
+\lstset{
+    basicstyle=\ttfamily\small, % Základní styl písma pro kód (monospace, menší velikost)
+    keywordstyle=\color{blue}\bfseries, % Styl pro klíčová slova
+    commentstyle=\color{gray}, % Styl pro komentáře
+    stringstyle=\color{purple}, % Styl pro řetězce
+    numbers=left, % Čísla řádků (volitelné, můžete vypnout)
+    numberstyle=\tiny\color{gray}, % Styl pro čísla řádků
+    stepnumber=1, % Každý řádek má číslo
+    numbersep=5pt, % Vzdálenost čísel řádků od kódu
+    backgroundcolor=\color{white}, % Barva pozadí
+    frame=single, % Ohraničení kolem kódu
+    rulecolor=\color{black}, % Barva rámce
+    breaklines=true, % Zalomení dlouhých řádků
+    captionpos=b, % Titulek kódu pod kódem (volitelné)
+    tabsize=4, % Velikost tabulátoru
+    showspaces=false, % Nezobrazovat mezery
+    showstringspaces=false, % Nezobrazovat mezery v řetězcích
+    breakatwhitespace=false, % Zalomení kódu pouze na mezerách
+    morekeywords={function, end, etc} % Vlastní klíčová slova
+}
+
 \ifCLASSINFOpdf
-  % \usepackage[pdftex]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../pdf/}{../jpeg/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+
 \else
-  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
-  % will default to the driver specified in the system graphics.cfg if no
-  % driver is specified.
-  % \usepackage[dvips]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../eps/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.eps}
+
 \fi
 
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -27,10 +40,12 @@
 \def\abstractname{Abstrakt}
 \def\IEEEkeywordsname{Klíčová slova}
 \def\refname{Reference}
-
+\pagestyle{plain}
 \begin{document}
 
-\title{Zero day \' utok}
+
+
+\title{Zero-Day \' utoky}
 
 
 \author{\IEEEauthorblockN{Bc. Veronika Jirmusov\' a}
@@ -38,6 +53,8 @@
 \textit{Vysoké učení technické v~Brně}\\
 Brno, 2024 \\
 xjirmu00@stud.fit.vut.cz}}
+
+
 
 
 
@@ -58,7 +75,7 @@ Zero-Day útoky jsou zranitelnosti v softwaru, které jsou objeveny a zneužity 
 
 % Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
-Zero-Day útok
+Zero-Day útoky, zabezpečení, bezpečné k\' odování, analýza
 \end{IEEEkeywords}
 
 
@@ -66,7 +83,7 @@ Zero-Day útok
 
 
 
-\section{Úvod do Zero-Day zranitelností a jejich významu:}
+\section{Úvod do Zero-Day zranitelností a jejich významu}
 Zero-Day zranitelnosti jsou jednou z největších hrozeb v oblasti kybernetické bezpečnosti. Termín "Zero-Day" se vztahuje na situaci, kdy je zranitelnost softwaru nalezena a zneužita útočníky dříve, než výrobce softwaru v\r ubec dostane nějaké informace o této zranitelnosti, a proto ještě neexistuje žádná oficiální záplata ani oprava. Tento název vychází z toho, že vývojáři mají "nula dní" na to, aby se chránili před touto hrozbou, což dává útočníkům šanci zneužít tuto zranitelnost.
 
 Zero-Day zranitelnosti mohou vzniknout v různých typech systémů, jako jsou operační systémy, webové prohlížeče, mobilní aplikace, síťová zařízení a cloudové služby. Jejich široký potenciál ohrozit mnohé cíle činí tyto zranitelnosti obzvlášť vážnými.
@@ -74,212 +91,252 @@ Zero-Day zranitelnosti mohou vzniknout v různých typech systémů, jako jsou o
 \subsection{Význam a důsledky Zero-Day útoků}
 Zero-Day útoky mají dalekosáhlé dopady na bezpečnost uživatelů, firem a států. Když útočníci najdou zranitelnost a využijí ji k vlastnímu prospěchu, mohou dosáhnout různých cílů, jako je neoprávněný přístup k citlivým datům, porušení integrity systému, získání úplné kontroly nad napadeným zařízením, nebo šíření malwaru. Tyto útoky často vedou k masivním bezpečnostním incidentům, únikům dat nebo vážným narušením služeb, což může mít podstatné finanční a reputační důsledky pro zasažené subjekty.
 
-Například známý útok Stuxnet \cite{Popelova2016thesis}, který se zaměřil na průmyslové řídicí systémy, nebo zranitelnost EternalBlue \cite{EB}, která vedla k šíření ransomwaru WannaCry, ukazují, jak vážné mohou být následky Zero-Day zranitelností. Tyto případy prokázaly, že Zero-Day útoky mohou být nejen nástrojem kybernetického zločinu, ale také prostředkem státem sponzorovaných operací.
+Například známý útok Stuxnet \cite{Popelova2016thesis}, který se zaměřil na průmyslové řídicí systémy, nebo zranitelnost EternalBlue \cite{EB}, která vedla k šíření ransomwaru (vyděračský program) WannaCry, ukazují, jak vážné mohou být následky Zero-Day zranitelností. Tyto případy prokázaly, že Zero-Day útoky mohou být nejen nástrojem kybernetického zločinu, ale také prostředkem státem sponzorovaných operací.
 
 \subsection{Rostoucí počet a sofistikovanost útoků}
 V důsledku stále rostoucí digitalizace a vyšší závislosti na softwarových řešeních se zvyšuje jak počet, tak složitost Zero-Day útoků. Útočníci, ať už jednotlivci, organizované skupiny nebo státní subjekty, investují významné částky do objevování nových zranitelností. To vedlo k vzniku černého trhu, kde se Zero-Day exploity prodávají za vysoké ceny. V důsledku toho jsou tyto útoky častěji využívány k cíleným útokům na vládní instituce, kritickou infrastrukturu nebo komerční firmy.
 
 Proto je zásadní, aby bezpečnostní experti, vývojáři a organizace soustředili své úsilí na výzkum, detekci a minimalizaci Zero-Day zranitelností. Zavedení účinných bezpečnostních opatření a rychlé reakce na zjištěné hrozby jsou rozhodující pro snížení rizika a ochranu uživatelů a systémů před potenciálními útoky.
 
-\subsection{Struktura projektu}
-V následujících kapitolách se zaměřím na analýzu reálných případů Zero-Day útoků, metody jejich detekce a mitigace. Cílem je nabídnout praktický pohled na problematiku a přispět k lepšímu pochopení toho, jak mohou být Zero-Day zranitelnosti identifikovány a minimalizovány.
+\subsection{Historie Zero-Day \' utok\r u \cite{article}}
+Historie Zero-Day zranitelností sahá do počátků internetu a prvních softwarových systémů, kdy bezpečnostní mezery byly často přehlíženy nebo podceňovány. Pojem "Zero-Day" se poprvé objevil v souvislosti s pirátskými softwarovými kopiemi, které byly distribuovány dříve, než výrobci mohli vydat prvn\' i opravy. První známé případy skutečných Zero-Day útoků byly zaznamenány na konci 20. století, kdy rostla popularita počítačových sítí a online služeb. Tyto útoky tehdy často cílily na zranitelnosti v operačních systémech jako Windows či Unix.
+
+Od té doby se Zero-Day útoky vyvinuly a staly se sofistikovanějšími, přičemž jejich význam dramaticky vzrostl. Například začátkem 21. století byl odhalen útok Blaster Worm (2003), který využil zranitelnost ve Windows a způsobil významné škody globálně. Dalším milníkem byl útok Stuxnet v roce 2010, který použil několik Zero-Day exploitů ke zničení íránských centrifug v jaderném zařízení. Tento útok ukázal, že Zero-Day zranitelnosti mohou být nejen nástrojem hackerů, ale i prostředkem pro vedení kybernetických konfliktů mezi státy.
+
+V posledních letech se staly Zero-Day útoky běžným nástrojem jak kriminálních organizací, tak státem podporovaných skupin. Trh s těmito zranitelnostmi se komercializoval a často probíhá na černém trhu, kde mohou být prodávány za miliony dolarů. Dnes je boj proti Zero-Day útokům jedním z největších výzev moderní kybernetické bezpečnosti.
 
 
 
-\section{Příklady a analýza aktuálních Zero-Day útoků:}
+\section{Příklady a analýza aktuálních Zero-Day útoků}
+Zero-Day útoky jsou neustálou hrozbou pro všechny systémy a představují vážné riziko pro uživatele, podniky i vlády. V této kapitole se zaměřím na analýzu několika významných Zero-Day útoků, které se odehrály v nedávné době. Cílem je pochopit technické aspekty zranitelností, jejich využití útočníky a dopady na oběti.
+
+\subsection{Zero-Day Exploit v Google Chrome (20. května 2024) \cite{google}}
+V květnu 2024 byl objeven významný Zero-Day útok zaměřený na prohlížeč Google Chrome, který vyvolal značné znepokojení v bezpečnostní komunitě. Tento útok se zaměřoval na dosud neodhalenou zranitelnost v jednom z klíčových komponent prohlížeče, konkrétně v jeho JavaScriptovém enginu V8, který je zodpovědný za rychlé a efektivní zpracování skriptů na webových stránkách.
+\subsubsection{Reakce}
+Společnost Google reagovala okamžitě a vydala bezpečnostní aktualizaci pro Chrome, která zranitelnost opravila. Uživatelé byli důrazně vyzváni k aktualizaci svého prohlížeče na nejnovější verzi, aby minimalizovali riziko zneužití. Google rovněž poděkoval bezpečnostnímu výzkumníkovi, který tuto zranitelnost odhalil, a udělil mu odměnu v rámci svého programu "Bug Bounty".
+\subsection{Zero-Day zranitelnost v Google Chrome (březen 2023)}
+V březnu 2023 byla objevena a rychle zveřejněna kritická Zero-Day zranitelnost ve webovém prohlížeči Google Chrome. Tato zranitelnost, označená jako CVE-2023-XXXX, byla zneužívána ke vzdálenému spuštění kódu na zařízeních uživatelů. Útočníci zneužili chybu v modulu JavaScriptu V8, což jim umožnilo obejít ochranné mechanismy prohlížeče, jako je sandboxing, a spustit škodlivý kód.
+
+\subsubsection{Technická analýza} Chyba spočívala v nesprávné správě paměti během zpracování specifických JavaScriptových funkcí. Útočníci dokázali manipulovat s alokací a uvolněním paměti, což vedlo k přetečení vyrovnávací paměti a možnosti spustit neautorizovaný kód.
+\subsubsection{Exploitační metoda} Zero-Day exploit byl distribuován prostřednictvím škodlivých webových stránek. Po návštěvě takové stránky uživatelem se spustil škodlivý JavaScriptový kód, který se pokusil získat kontrolu nad počítačem.
+\subsubsection{Dopad} Google okamžitě vydal bezpečnostní aktualizaci, ale odhalení tohoto útoku ukázalo, jak sofistikované mohou být moderní útoky zaměřené na prohlížeče. Útok zasáhl desítky milionů uživatelů a ilustroval důležitost pravidelných aktualizací.
+\subsection{Log4Shell (2021) – Zero-Day v open-source knihovně Log4j}
+V prosinci 2021 byla odhalena kritická Zero-Day zranitelnost v široce používané open-source knihovně Apache Log4j, známá jako Log4Shell (CVE-2021-44228). Tato zranitelnost umožňovala útočníkům vzdáleně spouštět libovolný kód na napadeném serveru prostřednictvím manipulace s logovacími údaji.
+
+\subsubsection{Technická analýza} Zranitelnost spočívala v tom, že knihovna Log4j nesprávně zpracovávala logované řetězce obsahující speciální uživatelsky definované vstupy, které mohly vyvolat tzv. JNDI (Java Naming and Directory Interface) požadavky na vzdálené servery. To umožnilo útočníkům načíst škodlivý kód z externího zdroje a spustit jej na serveru.
+\subsubsection{Exploitační metoda} Exploit byl extrémně snadno zneužitelný – stačilo, aby aplikace logovala určitý řetězec s útočníkem definovanou adresou, a došlo k spuštění škodlivého kódu.
+\subsubsection{Dopad} Zranitelnost Log4Shell měla obrovský dopad, protože Log4j je široce používána v mnoha komerčních i open-source projektech. Incident vyvolal globální poplach a vedl k rychlému zavedení záplat. Zranitelnost byla zneužita k různým útokům, od ransomwarových kampaní po krádeže dat.
+\subsection{Microsoft Exchange Server Zero-Day (2021)}
+Dalším významným příkladem je série Zero-Day zranitelností objevených v březnu 2021 v serverech Microsoft Exchange, které byly cíleně zneužívány skupinou známou jako HAFNIUM. Tyto zranitelnosti umožňovaly útočníkům vzdálené spuštění kódu a neoprávněný přístup k e-mailovým serverům.
+
+\subsubsection{Technická analýza} Zranitelnosti zahrnovaly kombinaci chybných ověření přístupu a neschopnosti řádně chránit určité konfigurační soubory serveru. Útočníci mohli nahrát webové shelly, což jim poskytlo přímý přístup k citlivým údajům.
+\subsubsection{Exploitační metoda} Útočníci vytvořili škodlivé požadavky směřující na zranitelné Exchange servery, což vedlo k nahrání a spuštění webových souborů (web shells), které umožňovaly dlouhodobé ovládání serverů.
+\subsubsection{Dopad} Tento útok zasáhl tisíce organizací po celém světě a způsobil velké narušení bezpečnosti. Byl rychle označen za jednu z největších bezpečnostních krizí roku 2021.
 \section{Technické detaily a analýza zranitelností}
-\section{Způsoby detekce a prevence Zero-Day útoků:}
+Zero-Day útoky bývají možné díky specifickým zranitelnostem v softwarových systémech. Tyto zranitelnosti mohou mít různé podoby – od chybné správy paměti, přes nedostatečnou validaci vstupů, až po slabiny v autentizaci a autorizaci. V této kapitole se podrobně zaměřím na technické detaily vybraných zranitelností, které byly nedávno zneužity, a na metody, jakými byly tyto zranitelnosti odhaleny a exploity vytvořeny.
+
+\subsection{Přetečení paměti a zranitelnosti typu buffer overflow \cite{buff}}
+Jednou z nejčastějších a historicky nejnebezpečnějších zranitelností je přetečení vyrovnávací paměti \cite{buff} (buffer overflow). Tento typ zranitelnosti nastává, když je do paměťového prostoru určité proměnné nebo pole zapsán větší objem dat, než je jeho maximální kapacita. Pokud není správně zajištěna kontrola hranic, může dojít k přepsání sousedních částí paměti, což útočníkům umožňuje spustit libovolný kód nebo změnit chování aplikace.
+
+\subsubsection{Příklad zneužití} Zero-Day zranitelnost v knihovně C++ byla objevena, kdy bylo možné přepsat oblast paměti přidělenou pro funkci uživatelského vstupu. Útočníci využili této slabiny k injekci škodlivého kódu a jeho spuštění.
+\subsubsection{Prevence} Použití ochranných mechanismů, jako je technologie Address Space Layout Randomization (ASLR), a bezpečné funkce manipulace s řetězci, jako jsou strncpy() namísto strcpy(), mohou pomoci snížit riziko přetečení.
+\subsection{Zranitelnosti způsobené nesprávnou validací vstupů \cite{OWASP}}
+Chybná validace vstupních dat je dalším častým zdrojem Zero-Day zranitelností. Aplikace, které důvěřují uživatelským vstupům bez dostatečného ověření, mohou být snadno zneužity prostřednictvím technik, jako je SQL injection, command injection nebo XSS (Cross-Site Scripting).
+
+\subsubsection{Analýza případu} Ve zranitelnosti Log4Shell byla zneužita nedostatečně validovaná logovací data, což útočníkům umožnilo využít funkci JNDI ke spuštění libovolného kódu prostřednictvím vzdálených požadavků. Tímto způsobem získali přístup k systému a dokázali ho ovládat.
+\subsubsection{Prevence}Důsledná sanitizace vstupů, použití whitelistů pro přípustné hodnoty a validace dat na straně serveru jsou klíčové k minimalizaci rizik.
+\subsection{Zranitelnosti autentizačních a autorizacních mechanismů \cite{OWASP}}
+Autentizace a autorizace jsou kritickými součástmi ochrany uživatelských dat a systémů. Zranitelnosti v těchto mechanismech mohou umožnit útočníkům obejít ověření identity a získat přístup k systémům a datům.
+
+\subsubsection{Technický příklad} Zero-Day útok na Microsoft Exchange v roce 2021 využil chyby v ověřování přístupu k přístupu na různé objekty v systému. Útočníci zneužili kombinaci neúplných bezpečnostních kontrol a chybných přístupových povolení, aby získali vzdálenou kontrolu nad systémem.
+\subsubsection{Prevence} Zajištění vícefaktorové autentizace (MFA), omezení oprávnění uživatelů a pravidelné auditování přístupových práv mohou pomoci snížit riziko těchto útoků.
+\subsection{Zranitelnosti ve spravě paměti (Use-After-Free) \cite{mem}}
+Zranitelnosti typu Use-After-Free nastávají, když se aplikace pokusí přistoupit k paměti, která již byla uvolněna. To může vést k nepředvídatelnému chování programu a m\r uže umožnit útočníkům provést vzdálené spuštění kódu.
+
+\subsubsection{Technická analýza} Například Zero-Day zranitelnost v prohlížeči Google Chrome byla způsobena nesprávnou správou uvolněné paměti, což útočníkům umožnilo přesměrovat programovou exekuci.
+\subsubsection{Prevence} Moderní programovací jazyky často implementují automatické řízení paměti, což pomáhá předejít těmto zranitelnostem. Použití nástrojů pro analýzu paměti, jako je Valgrind, a důsledná kontrola přístupu k paměti jsou proto dle mého názoru velice d\r uležité.
+\subsection{Bezpečnostní obchvaty a obcházení sandboxů \cite{Cox}}
+Sandboxing je jedním z nejúčinnějších ochranných mechanismů, které brání aplikacím přístupu k citlivým prostředkům systému. Útočníci se však často zaměřují na obcházení sandboxu, což jim umožňuje přístup mimo chráněné prostředí.
+
+\subsubsection{Příklad} V případě útoku na Google Chrome byl sandbox úspěšně obejit použitím řetězení několika Zero-Day exploitů. Tento typ útoku často vyžaduje detailní znalost systému a jeho vnitřní logiky, proto je mnohem těžší takový \' utok provést oproti již zmíněným typ\r um \' utok\r u.
+\subsubsection{Prevence} Kromě pravidelných aktualizací sandboxového prostředí je nutné zavádět vrstvené bezpečnostní mechanismy, které minimalizují možnost obcházení.
+\section{Způsoby detekce a prevence Zero-Day útoků}
+Zero-Day útoky představují unikátní výzvu pro odborníky na kybernetickou bezpečnost, protože zneužívají zranitelnosti, které zatím nejsou veřejně známé a dosud nebyly vývojáři opraveny. Pro efektivní obranu před těmito hrozbami je třeba kombinovat moderní technologie a proaktivní přístup k bezpečnosti. Tato kapitola se zaměřuje na klíčové techniky a metody používané pro detekci a prevenci Zero-Day útoků.
+
+\subsection{Behaviorální analýza a detekce anomálií \cite{Smith}}
+Jedním z hlavních přístupů k detekci Zero-Day útoků je sledování a analýza chování systémů a aplikací. Místo spoléhání se na signatury známých hrozeb sleduje behaviorální analýza podezřelé aktivity v reálném čase. Pokud aplikace začne provádět neobvyklé operace, jako je neočekávané zapisování do paměti, komunikace v síti nebo modifikace systémových souborů, mělo by být aktivováno varování, které je pak nutné blíže zkoumat.
+
+\subsubsection{Techniky} Behaviorální detekce využívá strojové učení, které analyzuje velké množství dat o klasick\' em provozu systému a detekuje odchylky. Například anomálie v provozu sítě mohou indikovat pokusy o komunikaci s externími servery, což může být známkou probíhajícího Zero-Day (nebo vlastně jakéhokoliv) útoku.
+\subsubsection{Výhody a nevýhody} Výhodou tohoto přístupu je schopnost detekovat zcela nové hrozby bez nutnosti předchozí znalosti jejich struktury. Nevýhodou je, že tento přístup může generovat falešné poplachy, pokud není správně nakonfigurován, tudíž m\r uže vyžadovat redundantní kontroly a nemusí se tak v některých systémech v\r ubec vyplatit.
+\subsection{Využití sandboxingu \cite{Sandboxing}}
+Sandboxing je bezpečnostní technika, která omezuje spuštění neověřeného kódu v izolovaném prostředí, kde nemá přístup k hlavnímu systému. Jakmile je podezřelý kód detekován, může být spuštěn a analyzován v kontrolovaném prostředí, čímž se sníží riziko jeho zneužití.
+
+\subsubsection{Příklad využití} E-mailové přílohy nebo soubory stažené z internetu mohou být před otevřením automaticky zpracovány v sandboxu, aby bylo možné detekovat případné škodlivé aktivity, jako je přepisování paměti nebo pokusy o komunikaci s externími servery.
+\subsubsection{Limity} I přestože je sandboxing účinný proti některým Zero-Day útokům, pokročilí útočníci mohou implementovat techniky, které detekují běh v sandboxu a upraví své chování, aby se vyhnuli detekci.
+\subsection{Heuristická analýza a prediktivní modelování \cite{HeuristicAnalysis}}
+Heuristická analýza vyhodnocuje kód a chování aplikací na základě známých vzorců, podezřelých operací nebo potenciálně nebezpečných instrukcí. Tento přístup je často doplňkem behaviorální analýzy a signaturových metod, protože umožňuje identifikovat dosud neznámé zranitelnosti na základě podobností s již známými útoky.
+
+\subsubsection{Prediktivní modely} Moderní prediktivní modely využívají strojové učení a umělou inteligenci k identifikaci a predikci chování, které by mohlo indikovat přítomnost Zero-Day zranitelností. Analýzou obrovských množství dat o předchozích útocích se modely učí detekovat nové typy hrozeb.
+\subsubsection{Praktické použití} Prediktivní technologie jsou často používány v kontextu anti-malware řešení, která monitorují aplikace a provoz sítě, aby včas varovala před podezřelými aktivitami.
+\subsection{Síťové ochrany a IPS/IDS systémy \cite{Stallings}}
+Systémy pro detekci a prevenci narušení (IPS/IDS) monitorují a analyzují provoz sítě a detekují neobvyklé nebo podezřelé aktivity. I když mohou být Zero-Day útoky zpočátku neznámé, IPS a IDS mohou detekovat útoky na základě abnormalit v protokolech sítí, pokusů o skenování portů nebo neobvyklé komunikace.
+
+\subsubsection{Příklad technologie} IPS systémy mohou automaticky blokovat nebo izolovat podezřelou aktivitu, zatímco IDS pouze upozorňují bezpečnostní tým na možné hrozby, které pak musí tým sám odstranit.
+\subsubsection{Výhody a nevýhody} Zatímco IPS/IDS mohou být účinné při detekci neobvyklých útoků, vyžadují správnou konfiguraci, aby se minimalizovalo množství falešných pozitivních výsledků.
+\subsection{Pravidelné záplaty a bezpečnostní aktualizace \cite{Patching}}
+I když Zero-Day útoky míří na zranitelnosti, které dosud nejsou opraveny, pravidelné aktualizace softwaru a bezpečnostní záplaty mohou minimalizovat jejich účinnost. Aktualizace se starají o to, že mají systémy nejnovější opravy, které řeší i nově objevené zranitelnosti.
+
+\subsubsection{Proces patch managementu} Správná správa záplat zahrnuje sledování nově objevených zranitelností a jejich okamžitou aplikaci do příslušných systémů.
+\subsubsection{Výzvy} Ve větších organizacích je však obtížné provádět záplaty okamžitě, protože to může narušit provoz a vyžaduje pečlivé testování.
+\subsection{Využití threat intelligence a sdílení informací \cite{Baker}}
+Proaktivní přístup k detekci Zero-Day zranitelností zahrnuje sdílení informací mezi organizacemi a bezpečnostními komunitami. Threat intelligence zahrnuje sběr a analýzu informací o aktuálních hrozbách a jejich šíření mezi jednotlivými subjekty.
+
+\subsubsection{Výhody} Sdílení informací umožňuje rychlejší reakci na nové hrozby a zvyšuje celkovou připravenost organizací na potenciální útoky.
+\subsubsection{Praktické příklady} Platformy jako MITRE ATT\&CK nebo VirusTotal shromažďují informace o hrozbách a umožňují analýzu škodlivých vzorků.
 \section{Praktické ukázky detekce a mitigace}
+Tato kapitola se zaměřuje na konkrétní ukázky, jak lze detekovat Zero-Day zranitelnosti v reálném prostředí a jakými způsoby lze minimalizovat riziko jejich zneužití. Prezentované příklady demonstrují použití moderních bezpečnostních technologií a přístupů k ochraně systémů a dat před útoky, které využívají dosud neznámé zranitelnosti.
+
+\subsection{Detekce Zero-Day útoků pomocí EDR systémů (Endpoint Detection and Response) \cite{edr}}
+EDR systémy poskytují pokročilou detekci a repliku na hrozby, které mohou zahrnovat Zero-Day útoky. Tyto systémy monitorují a analyzují činnost na koncových zařízeních (např. pracovní stanice, servery) v reálném čase a detekují podezřelé aktivity.
+
+\subsubsection{Praktická ukázka} Představme si útok, při kterém je škodlivý kód injektován do legitimní aplikace. EDR systém může zaznamenat neobvyklé chování, například pokusy aplikace o modifikaci klíčových systémových souborů, a v reálném čase spustit analýzu. Systém následně automaticky izoluje proces, čímž zabrání šíření útoku.
+\subsubsection{Nástroje} Mezi běžně používané EDR nástroje patří Microsoft Defender for Endpoint, CrowdStrike Falcon nebo SentinelOne. Tyto nástroje umožňují jak detekci, tak i automatickou zp\v etnou vazbu na hrozby.
+\subsection{Sandboxing a analýza potenciálně škodlivého kódu}
+Sandboxing, jak je již výše zmíněno, je metoda izolace, která umožňuje spouštění neověřeného nebo podezřelého kódu v bezpečném a kontrolovaném prostředí. Toto prostředí simuluje běh aplikace, aniž by došlo k ohrožení produkčního systému.
+
+\subsubsection{Praktická demonstrace} E-mailová příloha obsahující potenciální malware je spuštěna v sandboxovém prostředí. Sandbox sleduje, zda aplikace neprovádí podezřelé operace, jako je pokus o připojení k neznámým IP adresám nebo modifikace souborového systému. Jakmile je škodlivé chování detekováno, příloha je označena jako riziková a její šíření je zablokováno.
+\subsubsection{Nástroje} Cuckoo Sandbox je otevřený nástroj, který umožňuje analýzu škodlivého kódu v izolovaném prostředí. Komerční řešení zahrnují například FireEye nebo Check Point SandBlast.
+\subsection{Využití síťových detekčních systémů (NIDS) k analýze síťového provozu \cite{Miller}}
+Nástroje pro detekci narušení sítě (NIDS) monitorují provoz na síti a hledají vzorce, které by mohly naznačovat útok. Tyto systémy se opírají o kombinaci pravidel, heuristik a behaviorální analýzy k detekci podezřelých aktivit.
+
+\subsubsection{Ukázkový scénář }Útočník se pokouší provést Zero-Day útok prostřednictvím škodlivého provozu v síti. NIDS, jako je Snort nebo Suricata, může detekovat neobvyklé požadavky v síti, například pokusy o připojení na neznámé porty nebo přenosy velkého množství dat.
+\subsubsection{Mitigační strategie }Jakmile je podezřelý provoz detekován, NIDS může aktivovat blokování připojení, upozornit bezpečnostní tým nebo spustit další analýzu.
+\subsection{Implementace mitigace pomocí bezpečnostních politik}
+Bezpečnostní politiky definují pravidla, která chrání systémy před zneužitím zranitelností. Tyto politiky zahrnují omezení uživatelských oprávnění, pravidelné záplaty a použití vícefaktorové autentizace.
+
+\subsubsection{Praktická ukázka} Organizační politika zakazuje spuštění neznámých binárních souborů a omezuje přístup ke kritickým systémům pouze na uživatele s odpovídajícími oprávněními. To minimalizuje pravděpodobnost zneužití Zero-Day zranitelností pomocí sociálního inženýrství.
+\subsubsection{Podpora} Bezpečnostní platformy, jako je Microsoft Group Policy nebo nástroje pro správu přístupových práv, mohou být použity k implementaci těchto politik na úrovni celé organizace.
+\subsection{Automatizované aktualizace a patch management \cite{Taylor}}
+Pravidelné aktualizace a záplaty softwaru jsou klíčové pro minimalizaci rizika zneužití Zero-Day zranitelností. I když je Zero-Day zranitelnost neznámá, rychlé nasazení opravných balíčků snižuje pravděpodobnost jejího zneužití.
+
+\subsubsection{Příklad nasazení} Organizace implementuje systém automatických aktualizací, který sleduje dostupnost bezpečnostních záplat pro veškerý použitý software. Jakmile je nová záplata k dispozici, automaticky ji aplikuje, čímž minimalizuje dobu, po kterou je systém zranitelný.
+\subsubsection{Výzvy} Automatické aktualizace mohou vyžadovat pečlivé testování ve složitých IT prostředích, aby nedošlo k narušení kritických systémů.
+
+\section{Ukázky detekce a mitigace Zero-Day útoků v k\' odu}
+
+V této kapitole se zaměřuji na aplikaci výše zmíněných praktických ukázek přímo pomocí k\' odu, ve kterém se snažím znázornit, jak lze takové zranitelnosti mitigovat a vyhnout se tak Zero-Day \' utok\r um.
+
+\subsection{Detekce podezřelého procesu pomocí Pythonu}
+
+Níže uvedený příklad kódu demonstruje základní detekci podezřelých procesů běžících na systému. Tento skript sleduje systémové procesy a upozorňuje na neznámé nebo potenciálně škodlivé procesy, které se liší od běžného chování.
+
+\begin{lstlisting}[language=Python, caption={Detekce podezřelých procesů pomocí Pythonu}, linewidth=\columnwidth]
+import psutil
+
+# Seznam znamych duveryhodnych procesu
+trusted_processes = ["explorer.exe", "chrome.exe", "python.exe", "cmd.exe"]
+
+def detect_suspicious_processes():
+    for process in psutil.process_iter(['pid', 'name']):
+        try:
+            process_name = process.info['name'].lower()
+            if process_name not in trusted_processes:
+                print(f"Podezrely proces detekovan: {process_name} (PID: {process.info['pid']})")
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+
+if __name__ == "__main__":
+    print("Sledovani podezrelych procesu...")
+    detect_suspicious_processes()
+\end{lstlisting}
+
+\subsection{Sandboxové testování kódu pomocí Pythonu}
+
+Tento příklad demonstruje spuštění podezřelého kódu v sandboxu, kde jeho chování může být izolováno a analyzováno.
+
+\begin{lstlisting}[language=Python, caption={Spuštění kódu v sandboxu}, linewidth=\columnwidth]
+import subprocess
+import os
+
+def run_in_sandbox(command):
+    # Vytvoreni izolovaneho adresare pro sandbox
+    sandbox_dir = "/tmp/sandbox_env"
+    os.makedirs(sandbox_dir, exist_ok=True)
+    
+    # Zmena aktualniho adresare na sandbox
+    os.chdir(sandbox_dir)
+    
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, shell=True)
+        print("Vystup prikazu:")
+        print(result.stdout)
+    except Exception as e:
+        print(f"Chyba pri spusteni: {e}")
+
+if __name__ == "__main__":
+    # Priklad podezreleho prikazu ke spusteni
+    suspicious_command = "echo 'Testovaci spusteni podezreleho kodu'"
+    print("Spoustim prikaz v sandboxu...")
+    run_in_sandbox(suspicious_command)
+\end{lstlisting}
+
+\subsection{Základní pravidlo pro síťový IDS (Intrusion Detection System) v nástroji Snort}
+
+Následující ukázka ilustruje vytvoření jednoduchého pravidla pro Snort, které detekuje pokusy o připojení na neobvyklý port.
+
+\begin{lstlisting}[language=, caption={Pravidlo Snort pro detekci neobvyklého provozu}, linewidth=\columnwidth]
+alert tcp any any -> any 4444 (msg:"Podezrely pokus o pripojeni na port 4444"; sid:1000001; rev:1;)
+\end{lstlisting}
+
+\subsection{Ukázka jednoduchého pravidla firewallu v Pythonu (iptables)}
+
+Níže je ukázka kódu pro blokování příchozích spojení na specifický port pomocí \texttt{iptables} v systému Linux.
+
+\begin{lstlisting}[language=Python, caption={Blokování portu pomocí iptables}, linewidth=\columnwidth]
+import os
+
+def block_port(port):
+    try:
+        command = f"sudo iptables -A INPUT -p tcp --dport {port} -j DROP"
+        os.system(command)
+        print(f"Port {port} byl zablokovan.")
+    except Exception as e:
+        print(f"Chyba pri blokovani portu {port}: {e}")
+
+if __name__ == "__main__":
+    port_to_block = 4444  # Nebezpecny port
+    print("Blokuji port...")
+    block_port(port_to_block)
+\end{lstlisting}
+
+
 \section{Doporučení a závěry}
-% The very first letter is a 2 line initial drop letter followed
-% by the rest of the first word in caps.
-% 
-% form to use if the first word consists of a single letter:
-% \IEEEPARstart{A}{demo} file is ....
-% 
-% form to use if you need the single drop letter followed by
-% normal text (unknown if ever used by the IEEE):
-% \IEEEPARstart{A}{}demo file is ....
-% 
-% Some journals put the first two words in caps:
-% \IEEEPARstart{T}{his demo} file is ....
-% 
-% Here we have the typical use of a "T" for an initial drop letter
-% and "HIS" in caps to complete the first word.
+Zero-Day zranitelnosti představují jedny z nejvážnějších hrozeb v oblasti kybernetické bezpečnosti, protože jejich existence a zneužití obvykle předchází vydání opravy nebo dokonce povědomí o chybě ze strany vývojářů. Z tohoto důvodu je nezbytné klást velký důraz na jejich prevenci, detekci a zmírňování rizik.
+
+\subsection{Doporučení}
+\subsubsection{Pravidelné aktualizace} Uživatelé a organizace by měli pravidelně aktualizovat software a operační systémy, aby mohli využívat nejnovější bezpečnostní záplaty a opravy. Mnoho Zero-Day zranitelností se stává méně účinnými, pokud je software aktuální.
+
+\subsubsection{Implementace pokročilých bezpečnostních nástrojů} Kromě běžných antivirových programů je vhodné používat nástroje pro detekci anomálií a pokročilé systémy pro detekci narušení (IDS/IPS), které mohou pomoci odhalit podezřelé chování na úrovni sítě i jednotlivých zařízení.
+
+\subsubsection{Monitoring a logování} Průběžné sledování a logování aktivity v síti, procesů a chování uživatelských zařízení umožňuje odhalení neobvyklých aktivit, které mohou souviset s neznámými zranitelnostmi. Včasná detekce útoku je klíčová pro rychlou reakci.
+
+\subsubsection{Vzdělávání uživatelů} Uživatelé by měli být pravidelně informováni a školeni ohledně hrozeb, včetně toho, jak rozpoznat podezřelé aktivity, phishingové e-maily a další techniky sociálního inženýrství, které mohou být spojené s útoky na Zero-Day zranitelnosti.
+
+\subsubsection{Bezpečnostní audity a testování} Pravidelné penetrační testy a bezpečnostní audity softwaru a aplikací mohou pomoci odhalit potenciální zranitelnosti ještě před tím, než se stanou cílem útoku. Důkladné testování zvyšuje šanci odhalit a opravit chyby dříve, než je mohou zneužít útočníci.
+
+\subsection{Závěry}
+Zero-Day útoky představují neustále se vyvíjející hrozbu, která vyžaduje koordinované úsilí bezpečnostních expertů, vývojářů a koncových uživatelů. I přes jejich obtížnou detekci a prevenci je možné minimalizovat rizika prostřednictvím důsledného přístupu k bezpečnosti, pravidelné údržby softwaru a implementace pokročilých ochranných mechanismů.
+
+Tato práce poskytuje náhled na povahu Zero-Day útoků, jejich možné dopady a ukazuje příklady technik pro jejich detekci a zmírnění. Pokračující výzkum a spolupráce v této oblasti jsou klíčové pro boj s touto kategorií hrozeb a pro ochranu digitálních systémů i osobních dat uživatelů po celém světě.
 
 
-Definice Zero-Day zranitelností a Zero-Day útoků.\\
-Vysvětlení, proč jsou tyto útoky tak nebezpečné.\\
-Přehled historických i aktuálních Zero-Day útoků a jejich dopad na bezpečnost (např. útoky na Microsoft, Adobe, nebo Google Chrome).\\
-% You must have at least 2 lines in the paragraph with the drop letter
-% (should never be an issue)
-
-
-\subsection{Subsection Heading Here}
-Subsection text here.
-
-% needed in second column of first page if using \IEEEpubid
-%\IEEEpubidadjcol
-
-\subsubsection{Subsubsection Heading Here}
-Subsubsection text here.
-
-
-% An example of a floating figure using the graphicx package.
-% Note that \label must occur AFTER (or within) \caption.
-% For figures, \caption should occur after the \includegraphics.
-% Note that IEEEtran v1.7 and later has special internal code that
-% is designed to preserve the operation of \label within \caption
-% even when the captionsoff option is in effect. However, because
-% of issues like this, it may be the safest practice to put all your
-% \label just after \caption rather than within \caption{}.
-%
-% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
-% option should be used if it is desired that the figures are to be
-% displayed while in draft mode.
-%
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation results for the network.}
-%\label{fig_sim}
-%\end{figure}
-
-% Note that the IEEE typically puts floats only at the top, even when this
-% results in a large percentage of a column being occupied by floats.
-
-
-% An example of a double column floating figure using two subfigures.
-% (The subfig.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfloat command,
-% and the \label for the overall figure must come after \caption.
-% \hfil is used as a separator to get equal spacing.
-% Watch out that the combined width of all the subfigures on a 
-% line do not exceed the text width or a line break will occur.
-%
-%\begin{figure*}[!t]
-%\centering
-%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
-%\label{fig_second_case}}
-%\caption{Simulation results for the network.}
-%\label{fig_sim}
-%\end{figure*}
-%
-% Note that often IEEE papers with subfigures do not employ subfigure
-% captions (using the optional argument to \subfloat[]), but instead will
-% reference/describe all of them (a), (b), etc., within the main caption.
-% Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
-% labels, the optional argument to \subfloat must be present. If a
-% subcaption is not desired, just leave its contents blank,
-% e.g., \subfloat[].
-
-
-% An example of a floating table. Note that, for IEEE style tables, the
-% \caption command should come BEFORE the table and, given that table
-% captions serve much like titles, are usually capitalized except for words
-% such as a, an, and, as, at, but, by, for, in, nor, of, on, or, the, to
-% and up, which are usually not capitalized unless they are the first or
-% last word of the caption. Table text will default to \footnotesize as
-% the IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-%\begin{table}[!t]
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-%\caption{An Example of a Table}
-%\label{table_example}
-%\centering
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
-%\begin{tabular}{|c||c|}
-%\hline
-%One & Two\\
-%\hline
-%Three & Four\\
-%\hline
-%\end{tabular}
-%\end{table}
-
-
-% Note that the IEEE does not put floats in the very first column
-% - or typically anywhere on the first page for that matter. Also,
-% in-text middle ("here") positioning is typically not used, but it
-% is allowed and encouraged for Computer Society conferences (but
-% not Computer Society journals). Most IEEE journals/conferences use
-% top floats exclusively. 
-% Note that, LaTeX2e, unlike IEEE journals/conferences, places
-% footnotes above bottom floats. This can be corrected via the
-% \fnbelowfloat command of the stfloats package.
-
-
-
-
-
-% if have a single appendix:
-%\appendix[Proof of the Zonklar Equations]
-% or
-%\appendix  % for no appendix heading
-% do not use \section anymore after \appendix, only \section*
-% is possibly needed
-
-% use appendices with more than one appendix
-% then use \section to start each appendix
-% you must declare a \section before using any
-% \subsection or using \label (\appendices by itself
-% starts a section numbered zero.)
-%
-
-
-\appendices
-\section{Proof of the First Zonklar Equation}
-Appendix one text goes here.
-
-% you can choose not to have a title for an appendix
-% if you want by leaving the argument blank
-\section{}
-Appendix two text goes here.
-
-
-% use section* for acknowledgment
-\section*{Acknowledgment}
-
-
-The authors would like to thank...
-
-
-% Can use something like this to put references on a page
-% by themselves when using endfloat and the captionsoff option.
 \ifCLASSOPTIONcaptionsoff
   \newpage
 \fi
 
 
 
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
-% The "triggered" command can be changed if desired:
-%\IEEEtriggercmd{\enlargethispage{-5in}}
-
-% references section
-
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
 \bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
 \bibliography{proj}
 
 \end{document}
